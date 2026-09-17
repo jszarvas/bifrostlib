@@ -11,6 +11,7 @@ import functools
 import datetime
 import math
 from typing import Any, List, Dict, Union
+from collections import UserDict
 
 
 global BIFROST_SCHEMA
@@ -120,7 +121,7 @@ def get_schema_reference(reference_type: str, schema_version: str) -> Dict:
     return object_schema
 
 
-class BifrostObjectDataType(Dict):
+class BifrostObjectDataType(UserDict):
     """For schema datatypes
 
     Args:
@@ -275,7 +276,7 @@ class Requirements(BifrostObjectDataType):
         if value is None:
             value = {}
         BifrostObjectDataType.__init__(self, value)
-class BifrostObjectReference(Dict):
+class BifrostObjectReference(UserDict):
     """Base object for references, all references are based off of _id and name
 
     Args:
@@ -354,7 +355,7 @@ class BifrostObjectReference(Dict):
         """
         return self._reference_type
 
-class BifrostObject(Dict):
+class BifrostObject(UserDict):
     """Base object for bifrost objects. Id's are not required for creation.
 
     Args:
