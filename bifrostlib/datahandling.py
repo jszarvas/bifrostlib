@@ -947,6 +947,8 @@ class SampleComponent(BifrostObject):
         component = Component.load(self.component)
         sample = Sample.load(self.sample)
         no_failures = True
+        if component is None or sample is None:
+            raise ValueError(f"Sample or component referenced in SampleComponent does not exist in database")
         if component.json.get("requirements", {}) == None:
             return True
         sample_requirements = component.json.get("requirements", {}).get("sample", {})
