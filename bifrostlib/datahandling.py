@@ -960,16 +960,6 @@ class SampleComponent(BifrostObject):
         for requirement, expected_value in requirements.items():
             if not self._has_requirement(sample.json, requirement.split("."), expected_value):
                 no_failures = False
-        component_requirements = component.get("requirements", {}).get("component", {})
-        Requirements(value=component_requirements) # To validate the object
-        for entry in component_requirements:
-            component_reference = ComponentReference(name=entry["name"])
-            referenced_samplecomponent = SampleComponent(sample_reference = self.sample(), component_reference = component_reference)
-            referenced_samplecomponent.load()
-            requirements = pandas.json_normalize(entry["requirements"], sep=".").to_dict(orient='records')[0] # Converts the line from a dict to a 2D dataframe with 1 row, then store as a dict at sheet 0
-            for requirement, expected_value in requirements.items():
-                if not self._has_requirement(referenced_samplecomponent.json, requirement.split("."), expected_value):
-                    no_failures = False
         if no_failures:
             return True
         else:
