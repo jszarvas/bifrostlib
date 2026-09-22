@@ -985,14 +985,16 @@ class SampleComponent(BifrostObject):
         """
         self._json["categories"][category["name"]] = category.json
     def save_files(self) -> None:
-        component = Component.load(self.component)
-        file_paths = component.get("db_values_changes", {}).get("files",[])
-        file_ids = []
-        for file_path in file_paths:
-            file_id = database_interface.save_file(self._json["id"], self._json["name"], self._object_type, file_path)
-            if file_id is not None:
-                file_ids.append({"_id": file_id, "path": file_path})
-        self._json["files"] = file_ids
+        # TODO: get file saving to work
+        # component = Component.load(self.component)
+        # file_paths = component.get("db_values_changes", {}).get("files",[])
+        # file_ids = []
+        # for file_path in file_paths:
+        #     file_id = database_interface.save_file(self._json["_id"], self._json["name"], self._object_type, file_path)
+        #     if file_id is not None:
+        #         file_ids.append({"_id": file_id, "path": file_path})
+        # self._json["files"] = file_ids
+        self._json["files"] = {}
 class RunComponentReference(BifrostObjectReference):
     """RunComponent reference object
 
